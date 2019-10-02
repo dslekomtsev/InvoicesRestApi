@@ -1,0 +1,11 @@
+{
+  "invoices": [
+    {
+      "id": "1",
+      "create": "20-03-2018",
+      "no": "INV-000001",
+      "supple": "25-03-2018",
+      "comment": "Test invoice"
+    }
+  ]
+}

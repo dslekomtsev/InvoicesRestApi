@@ -11,3 +11,7 @@ body, thead {
 .hide {
     display: none;
 }
+
+.form-inline label, select {
+    margin-right: 5px;
+}

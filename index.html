@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Rest Api</title>
+        <title>Счета (накладные)</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -15,26 +15,70 @@
         <div class="container">
             <div class="row rounded">
                 <div class="col-md-12">
-                    <h5>Actions</h5>
+                    <h5>Действия</h5>
                 </div>
                 <div class="col-md-12">
-                    <button class="btn btn-primary">Add new</button>
+                    <button class="btn btn-primary">Добавить накладную</button>
+                </div>
+            </div>
+
+            <div class="row rounded">
+                <div class="col">
+                    <div class="form-row">
+                        <div class="col-auto form-inline">
+                            <label for="searh-query">Искать:</label>
+                            <input type="text" class="form-control" id="search-query">
+                        </div>
+                        <div class="col-auto form-inline">
+                            <label for="filter-by">в поле:</label>
+                            <select class="custom-select" id="filter-by">
+                                <option value="all" selected>все</option>
+                                <option value="number">номер</option>
+                                <option value="direction">направление</option>
+                                <option value="date_created">дата создания</option>
+                                <option value="date_due">дата сдачи</option>
+                                <option value="date_supply">дата поставки</option>
+                                <option value="comment">комментарий</option>
+                            </select>
+                        </div>
+                        <div class="col-auto form-inline">
+                            <label for="order-by">сортировать по:</label>
+                            <select class="custom-select" id="sort-by">
+                                <option value="number" selected>номеру</option>
+                                <option value="direction">направлению</option>
+                                <option value="date_created">дате создания</option>                                    
+                                <option value="date_due">дате сдачи</option>
+                                <option value="date_supply">дате поставки</option>
+                                <option value="comment">комментарию</option>
+                            </select>
+                            <select class="custom-select" id="sort-type">
+                                <option value="without" selected>без сортировки</option>
+                                <option value="asc">по возрастанию</option>
+                                <option value="desc">по убыванию</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" id="search-btn" class="btn btn-primary">Поиск</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="row rounded">
                 <div class="col-md-12">
-                    <h5>Invoices</h5>
+                    <h5>Счета (накладные)</h5>
                 </div>
                 <div class="col-md-12">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="hide"></th>
-                                <th>Create</th>
-                                <th>No</th>
-                                <th>Supply</th>
-                                <th>Comment</th>
+                                <th class="hide">Id</th>
+                                <th>Номер</th>
+                                <th>Направление</th>
+                                <th>Дата создания</th>
+                                <th>Срок сдачи</th>
+                                <th>Дата поставки</th>
+                                <th>Комментарий</th>
                                 <th></th>
                                 <th></th>
                             </tr>

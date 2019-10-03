@@ -31,8 +31,7 @@ var App = (function() {
                 $.each(data, function(i, v) {
                     var editBtn = `<td><button class="btn btn-primary" data-id="${v.id}">Редактировать</button></td>`;
                     var delBtn = `<td><button class="btn btn-danger" data-id="${v.id}">Удалить</button></td>`;
-                    var $tr = $(`<tr><td class="hide">${v.id}</td><td>${v.number}</td><td>${v.direction}</td><td>${v.date_created}</td>
-                                <td>${v.date_due}</td><td>${v.date_supply}</td><td>${v.comment}</td>${editBtn}${delBtn}</tr>`);
+                    var $tr = $(`<tr><td class="hide">${v.id}</td><td>${v.number}</td><td>${v.direction}</td><td>${v.date_created}</td><td>${v.date_due}</td><td>${v.date_supply}</td><td>${v.comment}</td>${editBtn}${delBtn}</tr>`);
                     $table_data.append($tr);
                 });               
             },

@@ -1,4 +1,4 @@
-var App = (function() {
+let App = (function() {
     'use strict';
 
     function LoadInvoices(query, filterBy, sortBy, sortType) {
@@ -19,19 +19,30 @@ var App = (function() {
         if (queryParam != '' && sortParam != '')
             hasFilterAndSortParam = true;
 
-        var $table_data = $('#table_data');
+        let $table_data = $('#table_data');
 
         $.ajax({
             async: true,
-            url: `http://localhost:3000/invoices?${queryParam}${hasFilterAndSortParam ? '&' : ''}${sortParam}&_limit=3`,
+            url: `http://localhost:3000/invoices?${queryParam}${hasFilterAndSortParam ? '&' : ''}${sortParam}`,
             method: 'GET',
             dataType: 'json',
             success: function (data) {
                 $table_data.empty();
                 $.each(data, function(i, v) {
-                    var editBtn = `<td><button class="btn btn-primary" data-id="${v.id}">Редактировать</button></td>`;
-                    var delBtn = `<td><button class="btn btn-danger" data-id="${v.id}">Удалить</button></td>`;
-                    var $tr = $(`<tr><td class="hide">${v.id}</td><td>${v.number}</td><td>${v.direction}</td><td>${v.date_created}</td><td>${v.date_due}</td><td>${v.date_supply}</td><td>${v.comment}</td>${editBtn}${delBtn}</tr>`);
+                    let dateCreated = new Date(v.date_created);
+                    let dateDue = new Date(v.date_due);
+                    let dateSupply = new Date(v.date_supply);
+                    let $tr = $(`<tr>
+                                    <td class="hide">${v.id}</td>
+                                    <td>${v.number}</td>
+                                    <td>${v.direction}</td>
+                                    <td>${dateCreated.toLocaleDateString("ru-RU")}</td>
+                                    <td>${dateDue.toLocaleDateString("ru-RU")}</td>
+                                    <td>${dateSupply.toLocaleDateString("ru-RU")}</td>
+                                    <td>${v.comment}</td>
+                                    <td><button class="btn btn-primary" data-id="${v.id}">Редактировать</button></td>
+                                    <td><button class="btn btn-danger" data-id="${v.id}">Удалить</button></td>
+                                </tr>`);
                     $table_data.append($tr);
                 });               
             },
@@ -52,6 +63,10 @@ var App = (function() {
         var sortType = $('#sort-type').val();
 
         LoadInvoices(query, filterBy, sortBy, sortType);
+    });
+
+    $('#add-invoice-btn').on('click', function() {
+        $('#edit-modal').modal('show');
     });
 
     return {

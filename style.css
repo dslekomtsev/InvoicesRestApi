@@ -2,7 +2,7 @@ body, thead {
     background-color: #f1f3f6;
 }
 
-.row {
+.row.row-with-margin {
     background-color: #fff;
     margin: 15px;
     padding: 15px;
@@ -14,4 +14,8 @@ body, thead {
 
 .form-inline label, select {
     margin-right: 5px;
+}
+
+.modal-dialog {
+    max-width: 900px;
 }

@@ -1,7 +1,7 @@
 let App = (function() {
     'use strict';
 
-    function LoadInvoices(query, filterBy, sortBy, sortType) {
+    let LoadInvoices = function(query, filterBy, sortBy, sortType) {
         query = $.trim(query);
         filterBy = $.trim(filterBy);
         sortBy = $.trim(sortBy);
@@ -52,22 +52,89 @@ let App = (function() {
         });
     }
 
-    function Init() {
-        LoadInvoices();
-    };
-
-    $('#search-btn').on('click', function() {
+    let LoadInvoicesByFilter = function() {
         var query = $('#search-query').val();
         var filterBy = $('#filter-by').val();
         var sortBy = $('#sort-by').val();
         var sortType = $('#sort-type').val();
 
         LoadInvoices(query, filterBy, sortBy, sortType);
+    }
+
+    let GenerateUUID = function() {
+        return `f${(+new Date).toString(16)}`;
+    }
+
+
+    let Init = function() {
+        LoadInvoices();
+    };
+
+    $('#search-btn').on('click', function() {
+        LoadInvoicesByFilter();
     });
 
     $('#add-invoice-btn').on('click', function() {
-        $('#edit-modal').modal('show');
+        let $modal = $('#edit-modal');
+        let $form = $modal.find('form');
+        $form.data('id', '');
+        $form.validator();
+
+        $modal.find('.modal-title').text('Добавление счета');
+        $modal.modal('show');
     });
+
+    $('#edit-modal').on('hidden.bs.modal', function() {
+        $(this).find('form').validator('destroy');
+    });
+
+    $('#edit-modal form').validator().on('submit', function(e) {
+        if (!e.isDefaultPrevented()) {
+            let $form = $(this);
+            var invoice = {
+                number: parseInt($form.find('#number').val()),
+                direction: $form.find('#direction').val(),
+                date_created: new Date().toLocaleDateString(),
+                date_due: $form.find('#date-due').val(),
+                date_supply: $form.find('#date-supply').val(),
+                comment: $form.find('#comment').val()
+            };
+
+            if ($form.data('id') == '') {
+                let uuid = GenerateUUID() + GenerateUUID();
+                invoice.id = uuid;
+                $.ajax({
+                    method: 'POST',
+                    url: 'http://localhost:3000/invoices',
+                    data: JSON.stringify(invoice),
+                    contentType: 'application/json; charset=utf-8',
+                    error: function (error) {
+                        console.log(error);
+                    },
+                    complete: function (d) {
+                        console.log(d);
+                    }
+                });
+            }
+            else {              
+                invoice.id = $form.data('id');
+                $.ajax({
+                    async: true,
+                    url: `http://localhost:3000/invoices/${invoice.id}`,
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(invoice),
+                    success: function () {
+                        LoadInvoicesByFilter();
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            }
+        }
+    });
+
 
     return {
         Init: Init

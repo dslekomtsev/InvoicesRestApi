@@ -19,3 +19,11 @@ body, thead {
 .modal-dialog {
     max-width: 900px;
 }
+
+.help-block.with-errors ul li {
+    color: #a94442;
+}
+
+.form-group.has-error input {
+    border-color: #a94442;
+}

@@ -90,6 +90,8 @@ let App = (function() {
 
     $('#edit-modal form').validator().on('submit', function(e) {
         if (!e.isDefaultPrevented()) {
+            e.preventDefault();
+
             let $form = $(this);
             var invoice = {
                 number: parseInt($form.find('#number').val()),
@@ -110,13 +112,10 @@ let App = (function() {
                     contentType: 'application/json; charset=utf-8',
                     error: function (error) {
                         console.log(error);
-                    },
-                    complete: function (d) {
-                        console.log(d);
                     }
                 });
             }
-            else {              
+            else {
                 invoice.id = $form.data('id');
                 $.ajax({
                     async: true,
@@ -133,6 +132,8 @@ let App = (function() {
                 });
             }
         }
+
+        return false;
     });
 
 

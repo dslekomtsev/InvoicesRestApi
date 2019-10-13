@@ -34,19 +34,20 @@ let App = (function() {
                     let dateSupply = v.date_supply != '' ? new Date(v.date_supply) : null;
                     let $tr = $(`<tr>
                                     <td class="hide">${v.id}</td>
-                                    <td>${v.number}</td>
+                                    <td class="number-td">${v.number}</td>
                                     <td>${v.direction}</td>
                                     <td>${dateCreated != null ? dateCreated.toLocaleDateString("ru-RU") : ''}</td>
                                     <td>${dateDue != null ? dateDue.toLocaleDateString("ru-RU") : ''}</td>
                                     <td>${dateSupply != null ? dateSupply.toLocaleDateString("ru-RU") : ''}</td>
                                     <td>${v.comment}</td>
                                     <td><button type="button" class="btn btn-primary edit-invoice-btn" data-id="${v.id}">Редактировать</button></td>
-                                    <td><button type="button" class="btn btn-danger delete-invoice-btn" data-id="${v.id}">Удалить</button></td>
+                                    <td><button type="button" class="btn btn-danger del-invoice-btn" data-id="${v.id}">Удалить</button></td>
                                 </tr>`);
                     $table_data.append($tr);
                 });
 
                 $('.edit-invoice-btn').on('click', EditInvoiceBtnClickHandler);
+                $('.del-invoice-btn').on('click', DeleteInvoiceBtnClickHandler);
             },
             error: function (error) {
                 console.error(error);
@@ -66,9 +67,25 @@ let App = (function() {
     let GenerateUUID = function() {
         return `f${(+new Date).toString(16)}`;
     }
+    
+    let GenerateGUID = function() {
+        var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+        return guid;
+    }
+
+    let DeleteInvoiceBtnClickHandler = function() {
+        let number = $(this).closest('tr').find('.number-td').text();
+        let $modal = $('#delete-modal');
+        $modal.find('#del-invoice-number').text(number);
+        $modal.find('#delete-invoice-btn').data($(this).data('id'));
+        $modal.modal('show');
+    }
 
     let EditInvoiceBtnClickHandler = function() {
-        ClearForm();
+        ClearEditForm();
         let $modal = $('#edit-modal');
         let $form = $modal.find('form');
         $form.data('id', $(this).data('id'));
@@ -86,7 +103,7 @@ let App = (function() {
                 if (data.date_supply != '')
                     $form.find('#date-supply').val(data.date_supply.substring(0, data.date_supply.indexOf('T')));
                 $form.find('#comment').val(data.comment);
-                $form.validator();
+                $form.validator('update');
 
                 $modal.find('.modal-title').text('Редактирование счета');
                 $modal.modal('show');
@@ -97,7 +114,7 @@ let App = (function() {
         });
     }
 
-    let ClearForm = function() {
+    let ClearEditForm = function() {
         let $form = $('#edit-modal form');
         $form.data('id', '');
         $form.data('date_created', '');
@@ -117,11 +134,12 @@ let App = (function() {
     });
 
     $('#add-invoice-btn').on('click', function() {
-        ClearForm();
+        ClearEditForm();
         let $modal = $('#edit-modal');
         let $form = $modal.find('form');
         $form.data('id', '');
-        $form.validator();
+        $form.find('#direction').val(GenerateGUID);
+        $form.validator('update');
         
         $modal.find('.modal-title').text('Добавление счета');
         $modal.modal('show');
@@ -132,9 +150,9 @@ let App = (function() {
     });
 
     $('#edit-modal form').validator().on('submit', function(e) {
-        if (!e.isDefaultPrevented()) {
-            e.preventDefault();
-            let $form = $(this);
+        e.preventDefault();
+        let $form = $(this);
+        if (!$form.find('button[type="submit"]').hasClass('disabled')) {
             let dateSupply = $form.find('#date-supply').val();
             var invoice = {
                 number: parseInt($form.find('#number').val()),
@@ -176,6 +194,8 @@ let App = (function() {
                 });
             }
         }
+        else
+            $form.validator('validate');
 
         return false;
     });

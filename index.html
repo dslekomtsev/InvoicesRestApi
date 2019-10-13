@@ -1,154 +1,189 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <title>Счета (накладные)</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
-            crossorigin="anonymous">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
-            rel="stylesheet" 
-            integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" 
-            crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="container">
-            <div class="row row-with-margin rounded">
-                <div class="col-md-12">
-                    <h5>Действия</h5>
-                </div>
-                <div class="col-md-12">
-                    <button class="btn btn-primary" id="add-invoice-btn">Добавить накладную</button>
-                </div>
+<head>
+    <title>Счета (накладные)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row row-with-margin rounded">
+            <div class="col-md-12">
+                <h5>Действия</h5>
             </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary" id="add-invoice-btn">
+                    Добавить накладную
+                </button>
+            </div>
+        </div>
 
-            <div class="row row-with-margin rounded">
-                <div class="col">
-                    <div class="form-row">
-                        <div class="col-auto form-inline">
-                            <label for="searh-query">Искать:</label>
-                            <input type="text" class="form-control" id="search-query">
-                        </div>
-                        <div class="col-auto form-inline">
-                            <label for="filter-by">в поле:</label>
-                            <select class="custom-select" id="filter-by">
-                                <option value="all" selected>все</option>
-                                <option value="number">номер</option>
-                                <option value="direction">направление</option>
-                                <option value="date_created">дата создания</option>
-                                <option value="date_due">дата сдачи</option>
-                                <option value="date_supply">дата поставки</option>
-                                <option value="comment">комментарий</option>
-                            </select>
-                        </div>
-                        <div class="col-auto form-inline">
-                            <label for="order-by">сортировать по:</label>
-                            <select class="custom-select" id="sort-by">
-                                <option value="number" selected>номеру</option>
-                                <option value="direction">направлению</option>
-                                <option value="date_created">дате создания</option>                                    
-                                <option value="date_due">дате сдачи</option>
-                                <option value="date_supply">дате поставки</option>
-                                <option value="comment">комментарию</option>
-                            </select>
-                            <select class="custom-select" id="sort-type">
-                                <option value="without" selected>без сортировки</option>
-                                <option value="asc">по возрастанию</option>
-                                <option value="desc">по убыванию</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" id="search-btn" class="btn btn-primary">Поиск</button>
-                        </div>
+        <div class="row row-with-margin rounded">
+            <div class="col">
+                <div class="form-row">
+                    <div class="col-auto form-inline">
+                        <label for="searh-query">Искать:</label>
+                        <input type="text" class="form-control" id="search-query" />
+                    </div>
+                    <div class="col-auto form-inline">
+                        <label for="filter-by">в поле:</label>
+                        <select class="custom-select" id="filter-by">
+                            <option value="all" selected>все</option>
+                            <option value="number">номер</option>
+                            <option value="direction">направление</option>
+                            <option value="date_created">дата создания</option>
+                            <option value="date_due">дата сдачи</option>
+                            <option value="date_supply">дата поставки</option>
+                            <option value="comment">комментарий</option>
+                        </select>
+                    </div>
+                    <div class="col-auto form-inline">
+                        <label for="order-by">сортировать по:</label>
+                        <select class="custom-select" id="sort-by">
+                            <option value="number" selected>номеру</option>
+                            <option value="direction">направлению</option>
+                            <option value="date_created">дате создания</option>
+                            <option value="date_due">дате сдачи</option>
+                            <option value="date_supply">дате поставки</option>
+                            <option value="comment">комментарию</option>
+                        </select>
+                        <select class="custom-select" id="sort-type">
+                            <option value="without" selected>без сортировки</option>
+                            <option value="asc">по возрастанию</option>
+                            <option value="desc">по убыванию</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" id="search-btn" class="btn btn-primary">
+                            Поиск
+                        </button>
                     </div>
                 </div>
             </div>
-            
-            <div class="row row-with-margin rounded">
-                <div class="col-md-12">
-                    <h5>Счета (накладные)</h5>
-                </div>
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="hide">Id</th>
-                                <th>Номер</th>
-                                <th>Направление</th>
-                                <th>Дата создания</th>
-                                <th>Срок сдачи</th>
-                                <th>Дата поставки</th>
-                                <th>Комментарий</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_data">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </div>
 
-            <div class="modal" tabindex="-1" role="dialog" id="edit-modal">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title"></h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+        <div class="row row-with-margin rounded">
+            <div class="col-md-12">
+                <h5>Счета (накладные)</h5>
+            </div>
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="hide">Id</th>
+                            <th>Номер</th>
+                            <th>Направление</th>
+                            <th>Дата создания</th>
+                            <th>Срок сдачи</th>
+                            <th>Дата поставки</th>
+                            <th>Комментарий</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_data"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="edit-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
                             <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <form data-toggle="validator" role="form">
-                            <div class="modal-body">
+                        </button>
+                    </div>
+                    <form data-toggle="validator" role="form">
+                        <div class="modal-body">
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="number">Номер</label>
-                                    <input type="number" required class="form-control" id="number">
+                                    <input type="number" required class="form-control" id="number" />
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="direction">Направление</label>
-                                    <input type="text" required class="form-control" id="direction">
+                                    <input type="text" required readonly class="form-control" id="direction" />
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="date-due">Срок сдачи</label>
-                                    <input type="date" class="form-control" id="date-due" required>
+                                    <input type="date" class="form-control" id="date-due" required />
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="date-supply">Дата поставки</label>
-                                    <input type="date" class="form-control" id="date-supply">
+                                    <input type="date" class="form-control" id="date-supply" />
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="comment">Комментарий</label>
                                     <textarea class="form-control" id="comment" row="3"></textarea>
                                 </div>
                             </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary save-invoice-btn">Сохранить</button>
-                            </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Закрыть
+                            </button>
+                            <button type="submit" class="btn btn-primary save-invoice-btn">
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
-        <script src="app.js"></script>
-    </body>
+        <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Удаление счета</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>                   
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6>Вы действительно хотите удалить счет "<span id="del-invoice-number"></span>"?</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Отмена
+                            </button>
+                            <button type="submit" class="btn btn-danger delete-invoice-btn">
+                                Удалить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
 </html>

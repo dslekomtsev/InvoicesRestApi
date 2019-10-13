@@ -3,5 +3,8 @@
     "version": "1.0.0",
     "dependencies": {
       "json-server": "^0.15.1"
+    },
+    "scripts": {
+        "start": "json-server db.json"
     }
   }

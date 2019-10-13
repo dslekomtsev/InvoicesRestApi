@@ -80,7 +80,7 @@ let App = (function() {
         let number = $(this).closest('tr').find('.number-td').text();
         let $modal = $('#delete-modal');
         $modal.find('#del-invoice-number').text(number);
-        $modal.find('#delete-invoice-btn').data($(this).data('id'));
+        $modal.find('.delete-invoice-btn').data('id', $(this).data('id'));
         $modal.modal('show');
     }
 
@@ -200,6 +200,23 @@ let App = (function() {
         return false;
     });
 
+    $('#delete-modal .delete-invoice-btn').on('click', function (e) {
+        e.preventDefault();
+
+        let id = $(this).data('id');
+
+        $.ajax({
+            async: true,
+            url: `http://localhost:3000/invoices/${id}`,
+            method: 'DELETE',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    });
 
     return {
         Init: Init

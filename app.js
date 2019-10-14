@@ -1,6 +1,8 @@
 let App = (function() {
     'use strict';
 
+    const apiBaseUrl = 'https://powerful-earth-56335.herokuapp.com/invoices';
+
     let LoadInvoices = function(query, filterBy, sortBy, sortType) {
         query = $.trim(query);
         filterBy = $.trim(filterBy);
@@ -23,7 +25,7 @@ let App = (function() {
 
         $.ajax({
             async: true,
-            url: `http://localhost:3000/invoices?${queryParam}${hasFilterAndSortParam ? '&' : ''}${sortParam}`,
+            url: `${apiBaseUrl}?${queryParam}${hasFilterAndSortParam ? '&' : ''}${sortParam}`,
             method: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -92,7 +94,7 @@ let App = (function() {
 
         $.ajax({
             async: true,
-            url: `http://localhost:3000/invoices/${$(this).data('id')}`,
+            url: `${apiBaseUrl}/${$(this).data('id')}`,
             method: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -168,7 +170,7 @@ let App = (function() {
                 invoice.id = uuid;
                 $.ajax({
                     method: 'POST',
-                    url: 'http://localhost:3000/invoices',
+                    url: apiBaseUrl,
                     data: JSON.stringify(invoice),
                     contentType: 'application/json; charset=utf-8',
                     error: function (error) {
@@ -181,7 +183,7 @@ let App = (function() {
                 invoice.date_created = $form.data('date_created');
                 $.ajax({
                     async: true,
-                    url: `http://localhost:3000/invoices/${invoice.id}`,
+                    url: `${apiBaseUrl}/${invoice.id}`,
                     method: 'PUT',
                     contentType: 'application/json',
                     data: JSON.stringify(invoice),
@@ -207,7 +209,7 @@ let App = (function() {
 
         $.ajax({
             async: true,
-            url: `http://localhost:3000/invoices/${id}`,
+            url: `${apiBaseUrl}/${id}`,
             method: 'DELETE',
             success: function (data) {
                 console.log(data);

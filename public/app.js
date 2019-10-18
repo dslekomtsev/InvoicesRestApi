@@ -1,7 +1,8 @@
 let App = (function() {
     'use strict';
 
-    const apiBaseUrl = 'https://powerful-earth-56335.herokuapp.com/invoices';
+    //const apiBaseUrl = 'https://powerful-earth-56335.herokuapp.com/invoices';
+    const apiBaseUrl = '/invoices';
 
     let LoadInvoices = function(query, filterBy, sortBy, sortType) {
         query = $.trim(query);

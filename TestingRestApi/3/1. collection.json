@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "dc7d5326-a360-4b51-b822-3e219fcd24db",
+		"name": "InvoicesRestApi_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all invoices",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e06dcf70-80ea-49d2-8bf5-bf1cb0c841b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post invoice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e06dcf70-80ea-49d2-8bf5-bf1cb0c841b4",
+						"exec": [
+							"pm.test(\"Status code is 201\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"id\": \"{{post_id}}\",\r\n    \"direction\": \"{{post_direction}}\",\r\n    \"number\": {{post_number}},\r\n    \"date_created\": \"{{_post_date_created}}\",\r\n    \"date_due\": \"{{post_date_due}}\",\r\n    \"date_supply\": \"{{post_date_supply}}\",\r\n    \"comment\": \"{{post_comment}}\"\r\n  }"
+				},
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update invoice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e06dcf70-80ea-49d2-8bf5-bf1cb0c841b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"id\": \"{{put_id}}\",\r\n    \"direction\": \"{{put_direction}}\",\r\n    \"number\": {{put_number}},\r\n    \"date_created\": \"{{put_date_created}}\",\r\n    \"date_due\": \"{{put_date_due}}\",\r\n    \"date_supply\": \"{{put_date_supply}}\",\r\n    \"comment\": \"{{put_comment}}\"\r\n  }"
+				},
+				"url": {
+					"raw": "{{base_url}}/{{put_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{put_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete invoice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e06dcf70-80ea-49d2-8bf5-bf1cb0c841b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/{{delete_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{delete_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2e3ba751-198f-4e2d-a71a-396f080fd49c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b1ed85c7-db10-40b6-be0c-022adb8990f5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "b31aeb65-4f46-47ce-b9d3-f11a6e9032c5",
+			"key": "base_url",
+			"value": "https://powerful-earth-56335.herokuapp.com/invoices",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

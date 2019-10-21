@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "946420c3-e831-4a6a-940a-0f7855d1e8f8",
+		"name": "InvoicesRestApi_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get invoices by filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e06dcf70-80ea-49d2-8bf5-bf1cb0c841b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}?{{field}}={{value}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"query": [
+						{
+							"key": "{{field}}",
+							"value": "{{value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2e3ba751-198f-4e2d-a71a-396f080fd49c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b1ed85c7-db10-40b6-be0c-022adb8990f5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "60fe2e86-2f0d-423c-a0b8-f97ef61cdd1f",
+			"key": "api_url",
+			"value": "https://powerful-earth-56335.herokuapp.com/invoices",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

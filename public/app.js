@@ -1,7 +1,25 @@
 let App = (function() {
     'use strict';
 
-    const apiBaseUrl = 'https://powerful-earth-56335.herokuapp.com/invoices';
+    const apiBaseUrl = 'https://obscure-refuge-37874.herokuapp.com/invoices';
+
+    let ajax = function(method, url, data, successCallbackFunc) {
+        $.ajax({
+            async: true,
+            url: url,
+            method: method,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: data,
+            success: function(data) {
+                if (successCallbackFunc !== undefined && typeof successCallbackFunc === "function")
+                    successCallbackFunc(data);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
 
     let LoadInvoices = function(query, filterBy, sortBy, sortType) {
         query = $.trim(query);
@@ -23,12 +41,8 @@ let App = (function() {
 
         let $table_data = $('#table_data');
 
-        $.ajax({
-            async: true,
-            url: `${apiBaseUrl}?${queryParam}${hasFilterAndSortParam ? '&' : ''}${sortParam}`,
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
+        ajax('GET', `${apiBaseUrl}?${queryParam}${hasFilterAndSortParam ? '&' : ''}${sortParam}`, null,
+            function (data) {
                 $table_data.empty();
                 $.each(data, function(i, v) {
                     let dateCreated = v.date_created != '' ? new Date(v.date_created) : null;
@@ -50,11 +64,7 @@ let App = (function() {
 
                 $('.edit-invoice-btn').on('click', EditInvoiceBtnClickHandler);
                 $('.del-invoice-btn').on('click', DeleteInvoiceBtnClickHandler);
-            },
-            error: function (error) {
-                console.error(error);
-            }
-        });
+            });
     }
 
     let LoadInvoicesByFilter = function() {
@@ -92,12 +102,8 @@ let App = (function() {
         let $form = $modal.find('form');
         $form.data('id', $(this).data('id'));
 
-        $.ajax({
-            async: true,
-            url: `${apiBaseUrl}/${$(this).data('id')}`,
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
+        ajax('GET', `${apiBaseUrl}/${$(this).data('id')}`, null,
+            function (data) {
                 $form.data('date_created', data.date_created);
                 $form.find('#number').val(data.number);
                 $form.find('#direction').val(data.direction);
@@ -109,11 +115,7 @@ let App = (function() {
 
                 $modal.find('.modal-title').text('Редактирование счета');
                 $modal.modal('show');
-            },
-            error: function (error) {
-                console.error(error);
-            }
-        });
+            });
     }
 
     let ClearEditForm = function() {
@@ -168,32 +170,15 @@ let App = (function() {
             if ($form.data('id') == '') {
                 let uuid = GenerateUUID() + GenerateUUID();
                 invoice.id = uuid;
-                $.ajax({
-                    method: 'POST',
-                    url: apiBaseUrl,
-                    data: JSON.stringify(invoice),
-                    contentType: 'application/json; charset=utf-8',
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+                ajax('POST', apiBaseUrl, JSON.stringify(invoice));
             }
             else {
                 invoice.id = $form.data('id');
                 invoice.date_created = $form.data('date_created');
-                $.ajax({
-                    async: true,
-                    url: `${apiBaseUrl}/${invoice.id}`,
-                    method: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify(invoice),
-                    success: function () {
-                        LoadInvoicesByFilter();
-                    },
-                    error: function (error) {
-                        console.error(error);
-                    }
-                });
+                ajax('PUT', `${apiBaseUrl}/${invoice.id}`, JSON.stringify(invoice),
+                    function(data) {
+                     LoadInvoicesByFilter();
+                    });
             }
         }
         else
@@ -204,20 +189,8 @@ let App = (function() {
 
     $('#delete-modal .delete-invoice-btn').on('click', function (e) {
         e.preventDefault();
-
         let id = $(this).data('id');
-
-        $.ajax({
-            async: true,
-            url: `${apiBaseUrl}/${id}`,
-            method: 'DELETE',
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (error) {
-                console.error(error);
-            }
-        });
+        ajax('DELETE', `${apiBaseUrl}/${id}`);
     });
 
     return {

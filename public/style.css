@@ -27,3 +27,7 @@ body, thead {
 .form-group.has-error input {
     border-color: #a94442;
 }
+
+#comment {
+    height: 110px;
+}

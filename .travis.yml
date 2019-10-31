@@ -22,7 +22,14 @@ branches:
     - develop
 
 deploy:
-  provider: heroku
-  app: "obscure-refuge-37874"
-  api_key:
-    secure: "3f6f0b59-71cf-438b-a417-aa76a20b83b8"
+  provider: pages
+  skip_cleanup: true
+  github_token: b6945a9281ae9c6cd2126fde878e69bce767d932  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
+
+  # provider: heroku
+  # app: "obscure-refuge-37874"
+  # api_key:
+  #   secure: "3f6f0b59-71cf-438b-a417-aa76a20b83b8"

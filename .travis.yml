@@ -14,6 +14,11 @@ before_script:
 
 script:
   - ls -ln
+  - cd TestingRestApi
+  - ls -ln
+  - cd 3
+  - ls -ln
+  - newman run "2. collection.json" -d "2. data.json"
   - newman run "TestingRestApi\3\2. collection.json" -d "TestingRestApi\3\2. data.json"
 
 branches:

@@ -4,6 +4,24 @@ language: node_js
 node_js:
   - 9
 
+install:
+  - npm install newman
+
+before_script:
+  - node --version
+  - npm --version
+  - newman --version
+
+script:
+  - newman run "TestingRestApi/3/2. collection.json" -d "TestingRestApi/3/2. data.json"
+
 branches:
   only:
     - master
+    - develop
+
+deploy:
+  provider: heroku
+  app: "obscure-refuge-37874"
+  api_key:
+    secure: "3f6f0b59-71cf-438b-a417-aa76a20b83b8"

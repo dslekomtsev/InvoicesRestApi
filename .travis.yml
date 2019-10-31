@@ -13,7 +13,7 @@ before_script:
   - newman --version
 
 script:
-  - newman run "TestingRestApi\3\2. collection.json" -d "TestingRestApi\3\2. data.json"
+  - newman run "TestingRestApi/3/2. collection.json" -d "TestingRestApi/3/2. data.json"
 
 branches:
   only:

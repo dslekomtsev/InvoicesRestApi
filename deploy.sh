@@ -25,9 +25,9 @@ then
   echo "Remove results of previous deploy (for ${TRAVIS_BRANCH} branch)."
   rm -rf "${TRAVIS_BRANCH}"
   mkdir "${TRAVIS_BRANCH}"
-  # Copy builded ember application from 'dist' directory into 'repository/${TRAVIS_BRANCH}'.
+  # Copy builded ember application from 'public' directory into 'repository/${TRAVIS_BRANCH}'.
   echo "Copy application (for ${TRAVIS_BRANCH} branch)."
-  cp -r ../src/* "${TRAVIS_BRANCH}"
+  cp -r ../public/* "${TRAVIS_BRANCH}"
   cd "${TRAVIS_BRANCH}"
   ls -l
   cd ..

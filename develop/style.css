@@ -1,0 +1,33 @@
+body, thead {
+    background-color: #f1f3f6;
+}
+
+.row.row-with-margin {
+    background-color: #fff;
+    margin: 15px;
+    padding: 15px;
+}
+
+.hide {
+    display: none;
+}
+
+.form-inline label, select {
+    margin-right: 5px;
+}
+
+.modal-dialog {
+    max-width: 900px;
+}
+
+.help-block.with-errors ul li {
+    color: #a94442;
+}
+
+.form-group.has-error input {
+    border-color: #a94442;
+}
+
+#comment {
+    height: 110px;
+}

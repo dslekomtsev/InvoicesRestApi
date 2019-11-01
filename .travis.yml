@@ -22,18 +22,8 @@ branches:
     - develop
 
 deploy:
-  provider: pages
+  provider: script
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  local_dir: master
+  script: bash deploy.sh
   on:
-    branch: master
-
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  local_dir: develop
-  on:
-    branch: develop
+    all_branches: true
